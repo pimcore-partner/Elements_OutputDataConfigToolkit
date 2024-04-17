@@ -60,7 +60,7 @@ abstract class AbstractConfigElement implements IConfigElement
     {
         $this->classificationstore_group = $classificationstore_group;
     }
-    
+
     public function getAttribute()
     {
         return $this->attribute;

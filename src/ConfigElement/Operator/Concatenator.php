@@ -16,7 +16,6 @@
 namespace OutputDataConfigToolkitBundle\ConfigElement\Operator;
 
 use OutputDataConfigToolkitBundle\ConfigElement\AbstractConfigElement;
-use OutputDataConfigToolkitBundle\ConfigElement\Value\DefaultValue;
 
 class Concatenator extends AbstractOperator
 {
@@ -51,7 +50,7 @@ class Concatenator extends AbstractOperator
                 $c->setClassificationstore($this->getClassificationstore());
                 $c->setClassificationstoreGroup($this->getClassificationstoreGroup());
             }
-                
+
             $value = $c->getLabeledValue($object) ? $c->getLabeledValue($object)->value : null;
 
             if (!$hasValue) {

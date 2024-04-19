@@ -15,6 +15,8 @@
 
 namespace OutputDataConfigToolkitBundle\ConfigElement\Operator;
 
+use OutputDataConfigToolkitBundle\ConfigElement\AbstractConfigElement;
+
 class Concatenator extends AbstractOperator
 {
     protected $glue;
@@ -44,6 +46,11 @@ class Concatenator extends AbstractOperator
         $valueArray = [];
 
         foreach ($childs as $c) {
+            if ($c instanceof AbstractConfigElement) {
+                $c->setClassificationstore($this->getClassificationstore());
+                $c->setClassificationstoreGroup($this->getClassificationstoreGroup());
+            }
+
             $value = $c->getLabeledValue($object) ? $c->getLabeledValue($object)->value : null;
 
             if (!$hasValue) {

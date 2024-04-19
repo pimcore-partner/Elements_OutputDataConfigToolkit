@@ -29,12 +29,6 @@ class DefaultValue extends AbstractConfigElement
     /** @var string|null */
     protected $icon;
 
-    /** @var string|null */
-    public $classificationstore;
-
-    /** @var string|null */
-    public $classificationstore_group;
-
     public function __construct($config, $context = null)
     {
         parent::__construct($config, $context);
@@ -157,15 +151,15 @@ class DefaultValue extends AbstractConfigElement
     protected function getLabeledValueForClassificationStore($object): ?object
     {
         // checking classification store fieldname
-        if (!$this->classificationstore) {
+        if (!$this->getClassificationstore()) {
             return null;
         }
-        $getter = 'get' . ucfirst($this->classificationstore);
+        $getter = 'get' . ucfirst($this->getClassificationstore());
         // checking classification sote group
-        if (!$this->classificationstore_group) {
+        if (!$this->getClassificationstoreGroup()) {
             return null;
         }
-        $groupDef = Classificationstore\GroupConfig::getByName($this->classificationstore_group);
+        $groupDef = Classificationstore\GroupConfig::getByName($this->getClassificationstoreGroup());
 
         // classification store
         $attribute = str_replace('#cs#', '', $this->attribute);

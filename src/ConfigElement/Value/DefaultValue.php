@@ -29,12 +29,6 @@ class DefaultValue extends AbstractConfigElement
     /** @var string|null */
     protected $icon;
 
-    // /** @var string|null */
-    // public $classificationstore;
-
-    // /** @var string|null */
-    // public $classificationstore_group;
-
     public function __construct($config, $context = null)
     {
         parent::__construct($config, $context);

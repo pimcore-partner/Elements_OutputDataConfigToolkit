@@ -30,7 +30,7 @@ class Group extends AbstractOperator
                 $c->setClassificationstoreGroup($this->getClassificationstoreGroup());
             }
             $value = $c->getLabeledValue($object);
-            if (!empty($value) && !$value->empty && (!method_exists($value, 'isEmpty') || !$value->isEmpty())) {
+            if (!empty($value) && (!property_exists($value, 'empty') || !$value->empty) && (!method_exists($value, 'isEmpty') || !$value->isEmpty())) {
                 $valueArray[] = $value;
             }
         }

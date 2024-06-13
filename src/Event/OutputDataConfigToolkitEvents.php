@@ -35,4 +35,11 @@ class OutputDataConfigToolkitEvents
      * @var string
      */
     const SAVE_CONFIG_EVENT = 'outputDataConfigToolkit.saveEvent';
+
+    /**
+     * @Event("OutputDataConfigToolkitBundle\Event\GroupClassificationStoreEvent")
+     *
+     * @var string
+     */
+    const GROUP_CLASSIFICATION_STORE_EVENT = 'outputDataConfigToolkit.groupClassificationStoreEvent';
 }

@@ -1,8 +1,7 @@
 <?php
 
-
 /**
- * Pimcore.
+ * Pimcore
  *
  * This source file is available under two different licenses:
  * - GNU General Public License version 3 (GPLv3)

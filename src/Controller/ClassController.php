@@ -148,10 +148,9 @@ class ClassController extends UserAwareController
             }
         }
 
-        
         if ($displayMode == ColumnConfigDisplayMode::ALL && $grouped === true) {
             $class->setFieldDefinitions($fieldDefinitions);
-            $classString = "Pimcore\\Model\\DataObject\\" . $class->getName();
+            $classString = 'Pimcore\\Model\\DataObject\\' . $class->getName();
             $targetObjectId = intval($request->get('target_oid'));
             $targetObject = DataObject\Concrete::getById($targetObjectId);
             $tmpObject = new $classString();
@@ -160,22 +159,22 @@ class ClassController extends UserAwareController
                 if (!$fieldDefinition instanceof DataObject\ClassDefinition\Data\Classificationstore) {
                     continue;
                 }
-                
+
                 $storeId = $fieldDefinition->getStoreId();
                 $store = new DataObject\Classificationstore();
 
                 $groupIds = [];
-                $sql = "SELECT `id` FROM `classificationstore_groups`";
+                $sql = 'SELECT `id` FROM `classificationstore_groups`';
                 if ($storeId > 0) {
-                    $sql = "SELECT `id` FROM `classificationstore_groups`  WHERE `storeId` = " . intval($storeId);
+                    $sql = 'SELECT `id` FROM `classificationstore_groups`  WHERE `storeId` = ' . intval($storeId);
                 }
-                
+
                 $queryResult = $db->executeQuery($sql);
 
                 while ($row = $queryResult->fetchAssociative()) {
                     $groupIds[intval($row['id'])] = true;
                 }
-               
+
                 $event = new Event\GroupClassificationStoreEvent($targetObject, $tmpObject, $fieldDefinition, $groupIds, $storeId);
                 $eventDispatcher->dispatch($event, Event\OutputDataConfigToolkitEvents::GROUP_CLASSIFICATION_STORE_EVENT);
 
@@ -185,7 +184,7 @@ class ClassController extends UserAwareController
                 $store->setObject($tmpObject);
                 $tmpObject->set($fieldDefinition->getName(), $store);
             }
-            
+
             DataObject\Service::enrichLayoutDefinition($result['objectColumns']['children'][0], $tmpObject);
         }
 
@@ -237,12 +236,11 @@ class ClassController extends UserAwareController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function getClassificationGroupedDisplay(): bool
     {
         return $this->classificationGroupedDisplay;
     }
-
 }

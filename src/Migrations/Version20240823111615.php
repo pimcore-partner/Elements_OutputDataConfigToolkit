@@ -29,21 +29,17 @@ final class Version20240823111615 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $table = $schema->getTable('bundle_outputdataconfigtoolkit_outputdefinition');
-
-        $query = "ALTER TABLE `%s` CHANGE COLUMN `configuration` `configuration` LONGTEXT
+        $query = "ALTER TABLE `bundle_outputdataconfigtoolkit_outputdefinition` CHANGE COLUMN `configuration` `configuration` LONGTEXT
                     CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_bin' NULL DEFAULT NULL;";
 
-        $this->addSql(sprintf($query, $table->getName()));
+        $this->addSql($query);
     }
 
     public function down(Schema $schema): void
     {
-        $table = $schema->getTable('bundle_outputdataconfigtoolkit_outputdefinition');
-
-        $query = "ALTER TABLE `%s` CHANGE COLUMN `configuration` `configuration` LONGTEXT
+        $query = "ALTER TABLE `bundle_outputdataconfigtoolkit_outputdefinition` CHANGE COLUMN `configuration` `configuration` LONGTEXT
                     CHARACTER SET 'latin1' NULL DEFAULT NULL;";
 
-        $this->addSql(sprintf($query, $table->getName()));
+        $this->addSql($query);
     }
 }

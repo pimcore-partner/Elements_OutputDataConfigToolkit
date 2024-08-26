@@ -216,16 +216,14 @@ class AdminController extends UserAwareController
             $config = OutputDefinition::getById($request->query->getInt('config_id'));
             $class = null;
             if (!$config) {
-                if (is_numeric($request->query->get('class_id'))) {
-                    $class = ClassDefinition::getById($request->query->getInt('class_id'));
-                } else {
+                if ($request->query->has('class_id')) {
                     $class = ClassDefinition::getByName($request->query->getString('class_id'));
                 }
                 if (!$class) {
-                    throw new \Exception('Class ' . $request->query->get('class_id') . ' not found.');
+                    throw new \Exception('Class ' . $request->query->getString('class_id') . ' not found.');
                 }
 
-                $config = OutputDefinition::getByObjectIdClassIdChannel($request->query->get('objectId'), $class->getId(), $request->query->get('channel'));
+                $config = OutputDefinition::getByObjectIdClassIdChannel($request->query->getInt('objectId'), $class->getId(), $request->query->getString('channel'));
             }
 
             if ($config) {
@@ -237,9 +235,9 @@ class AdminController extends UserAwareController
                 return $this->jsonResponse(['success' => true, 'outputConfig' => $config]);
             } else {
                 $config = new OutputDefinition();
-                $config->setChannel($request->query->get('channel'));
+                $config->setChannel($request->query->getString('channel'));
                 $config->setClassId($class->getId());
-                $config->setObjectId($request->query->get('objectId'));
+                $config->setObjectId($request->query->getInt('objectId'));
                 $config->save();
 
                 return $this->jsonResponse(['success' => true, 'outputConfig' => $config]);
@@ -403,8 +401,8 @@ class AdminController extends UserAwareController
     public function getFieldDefinitionAction(Request $request)
     {
         try {
-            $objectClass = ClassDefinition::getById($request->query->get('class_id'));
-            $def = $this->getFieldDefinition($request->query->get('key'), $objectClass);
+            $objectClass = ClassDefinition::getById($request->query->getString('class_id'));
+            $def = $this->getFieldDefinition($request->query->getString('key'), $objectClass);
 
             return $this->jsonResponse(['success' => true, 'fieldDefinition' => $def]);
         } catch (\Exception $e) {
@@ -469,7 +467,7 @@ class AdminController extends UserAwareController
     {
         $classList = new ClassDefinition\Listing();
 
-        if ($request->request->getString('class_id')) {
+        if ($request->request->has('class_id')) {
             $classList->setCondition('id = ?', $request->request->getString('class_id'));
         } elseif (!empty($this->defaultGridClasses)) {
             $allowedClassIds = [];

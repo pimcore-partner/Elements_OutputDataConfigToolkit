@@ -36,8 +36,8 @@ class Installer extends AbstractInstaller
               `id` int(11) NOT NULL AUTO_INCREMENT,
               `objectId` int(11) NOT NULL,
               `classId` varchar(50) NOT NULL,
-              `channel` varchar(255) COLLATE utf8_bin NOT NULL,
-              `configuration` longtext CHARACTER SET latin1,
+              `channel` varchar(255) NOT NULL,
+              `configuration` longtext,
               PRIMARY KEY (`id`),
               UNIQUE KEY `Unique` (`objectId`,`classId`,`channel`)
             ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -78,7 +78,7 @@ class Installer extends AbstractInstaller
         $db->executeQuery('DROP TABLE IF EXISTS `' . Dao::TABLE_NAME . '`;');
 
         $db->executeQuery("DELETE FROM users_permission_definitions WHERE `key` = 'bundle_outputDataConfigToolkit'");
-        if (self::isInstalled()) {
+        if ($this->isInstalled()) {
             throw new InstallationException('Could not be uninstalled.');
         }
     }

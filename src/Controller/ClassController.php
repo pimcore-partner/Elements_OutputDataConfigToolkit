@@ -156,7 +156,6 @@ class ClassController extends UserAwareController
             $targetObject = DataObject\Concrete::getById($targetObjectId);
             $tmpObject = $factory->build($classString);
             /** @var DataObject\Concrete $tmpObject */
-
             $db = Db::get();
             foreach ($class->getFieldDefinitions() as $fieldDefinition) {
                 if (!$fieldDefinition instanceof DataObject\ClassDefinition\Data\Classificationstore) {

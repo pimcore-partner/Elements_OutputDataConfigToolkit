@@ -23,6 +23,7 @@ use Pimcore\Controller\UserAwareController;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Classificationstore;
+use Pimcore\Model\FactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,7 +54,7 @@ class ClassController extends UserAwareController
      *
      * @throws \Exception
      */
-    public function getClassDefinitionForColumnConfigAction(Request $request, EventDispatcherInterface $eventDispatcher)
+    public function getClassDefinitionForColumnConfigAction(Request $request, EventDispatcherInterface $eventDispatcher, FactoryInterface $factory)
     {
         $classId = $request->get('id');
         $class = DataObject\ClassDefinition::getById($classId);
@@ -108,7 +109,7 @@ class ClassController extends UserAwareController
             }
         }
 
-        $this->considerClassificationStoreForColumnConfig($request, $class, $fieldDefinitions, $result, $eventDispatcher);
+        $this->considerClassificationStoreForColumnConfig($request, $class, $fieldDefinitions, $result, $eventDispatcher, $factory);
 
         return $this->jsonResponse($result);
     }
@@ -119,7 +120,7 @@ class ClassController extends UserAwareController
      * @param array $fieldDefinitions
      * @param array $result
      */
-    private function considerClassificationStoreForColumnConfig(Request $request, ?DataObject\ClassDefinition $class, array $fieldDefinitions, array &$result, EventDispatcherInterface $eventDispatcher): void
+    private function considerClassificationStoreForColumnConfig(Request $request, ?DataObject\ClassDefinition $class, array $fieldDefinitions, array &$result, EventDispatcherInterface $eventDispatcher, FactoryInterface $factory): void
     {
         $displayMode = $this->getClassificationDisplayMode();
 
@@ -153,7 +154,9 @@ class ClassController extends UserAwareController
             $classString = 'Pimcore\\Model\\DataObject\\' . $class->getName();
             $targetObjectId = intval($request->get('target_oid'));
             $targetObject = DataObject\Concrete::getById($targetObjectId);
-            $tmpObject = new $classString();
+            $tmpObject = $factory->build($classString);
+            /** @var DataObject\Concrete $tmpObject */
+
             $db = Db::get();
             foreach ($class->getFieldDefinitions() as $fieldDefinition) {
                 if (!$fieldDefinition instanceof DataObject\ClassDefinition\Data\Classificationstore) {

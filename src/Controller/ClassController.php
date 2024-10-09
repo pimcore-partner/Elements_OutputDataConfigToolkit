@@ -43,7 +43,7 @@ class ClassController extends UserAwareController
     protected $classificationDisplayMode;
 
     /* @var bool $classificationGroupedDisplay */
-    protected $classificationGroupedDisplay;
+    protected bool $classificationGroupedDisplay;
 
     /**
      * @Route("/get-class-definition-for-column-config", methods={"GET"})

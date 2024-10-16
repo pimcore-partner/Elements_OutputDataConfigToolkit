@@ -56,9 +56,9 @@ class ClassController extends UserAwareController
      */
     public function getClassDefinitionForColumnConfigAction(Request $request, EventDispatcherInterface $eventDispatcher, FactoryInterface $factory)
     {
-        $classId = $request->get('id');
+        $classId = $request->query->getString('id');
         $class = DataObject\ClassDefinition::getById($classId);
-        $objectId = intval($request->get('oid'));
+        $objectId = $request->query->getInt('oid');
 
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
 
@@ -131,7 +131,7 @@ class ClassController extends UserAwareController
         $enrichment = false;
         $grouped = $this->getClassificationGroupedDisplay();
         if ($displayMode == ColumnConfigDisplayMode::DATA_OBJECT || $displayMode == ColumnConfigDisplayMode::RELEVANT) {
-            $targetObjectId = $request->get('target_oid');
+            $targetObjectId = $request->query->getInt('target_oid');
 
             if ($targetObject = DataObject\Concrete::getById($targetObjectId)) {
                 $class->setFieldDefinitions($fieldDefinitions);

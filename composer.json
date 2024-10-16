@@ -3,12 +3,12 @@
   "license": "GPL-3.0+",
   "type": "pimcore-bundle",
   "require": {
-    "pimcore/pimcore": "^11.0",
+    "pimcore/pimcore": "^11.2",
     "symfony/config": "^6.2",
     "symfony/dependency-injection": "^6.2",
     "symfony/event-dispatcher": "^6.2",
     "symfony/event-dispatcher-contracts": "^3.0",
-    "symfony/http-foundation": "^6.2",
+    "symfony/http-foundation": "^6.3",
     "symfony/http-kernel": "^6.2",
     "symfony/routing": "^6.2",
     "symfony/templating": "^6.2"

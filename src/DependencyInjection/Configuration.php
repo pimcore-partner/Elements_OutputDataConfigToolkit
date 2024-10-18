@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                             ])
                             ->defaultValue('relevant')
                         ->end()
+                        ->booleanNode('grouped')->defaultFalse()->end()
                     ->end()
                 ->end()
                 ->arrayNode('tab_options')

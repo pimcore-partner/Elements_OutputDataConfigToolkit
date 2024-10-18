@@ -9,6 +9,10 @@ different display modes for classification store keys in the output definition c
 ##### DisplayMode `all` or `relevant` and type is folder or the object has no assigned group
 ![image](img/classification_all.jpg)
 
+##### DisplayMode `all` and Grouped `true`
+![image](img/classification_all_grouped.jpg)
+
+
 ##### DisplayMode `object` or `relevant` and object has any assigned group
 ![image](img/classification_relevant.jpg)
 

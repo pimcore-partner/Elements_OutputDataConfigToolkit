@@ -41,6 +41,7 @@ class DimensionUnitField extends DefaultValue
             $result = new \stdClass();
             $result->label = $rawResult->label;
             $result->def = $rawResult->def ?? null;
+            $result->value = null;
 
             $formatter = \Pimcore::getContainer()->get(\Pimcore\Localization\IntlFormatter::class);
 

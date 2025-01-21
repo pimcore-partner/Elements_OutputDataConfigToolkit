@@ -2,8 +2,11 @@
   "name": "pimcore/output-data-config-toolkit-bundle",
   "license": "GPL-3.0+",
   "type": "pimcore-bundle",
+  "prefer-stable": true,
+  "minimum-stability": "dev",
   "require": {
-    "pimcore/pimcore": "^11.2",
+    "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+    "pimcore/pimcore": "^11.2 || ^12.0",
     "symfony/config": "^6.2",
     "symfony/dependency-injection": "^6.2",
     "symfony/event-dispatcher": "^6.2",
@@ -14,7 +17,7 @@
     "symfony/templating": "^6.2"
   },
   "require-dev": {
-    "phpstan/phpstan": "^1.10.5",
+    "phpstan/phpstan": "^1.12.15",
     "phpstan/phpstan-symfony": "^1.2.20"
   },
   "autoload": {
